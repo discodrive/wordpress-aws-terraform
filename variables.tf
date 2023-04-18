@@ -5,10 +5,3 @@ variable "private_subnets" {
     name_tag          = string
   }))
 }
-
-variable "public_subnets" {
-  type = list(object({
-    cidr_block        = string
-    name_tag          = string
-  }))
-}
