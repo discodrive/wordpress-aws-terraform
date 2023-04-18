@@ -1,3 +1,16 @@
+public_subnets = [
+  {
+      cidr_block        = "10.0.0.0/24"
+      availability_zone = "0"
+      name_tag          = "Public Subnet 1"
+  },
+  {
+      cidr_block        = "10.0.1.0/24"
+      availability_zone = "1"
+      name_tag          = "Public Subnet 2"
+  }
+]
+
 private_subnets = [
   {
     cidr_block        = "10.0.2.0/24"

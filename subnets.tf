@@ -1,23 +1,13 @@
 # Public Subnets
-resource "aws_subnet" "public_primary" {
+resource "aws_subnet" "public_subnets" {
+  count                   = length(var.public_subnets)
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = "10.0.0.0/24"
-  availability_zone       = data.aws_availability_zones.available.names[0]
+  cidr_block              = var.public_subnets[count.index].cidr_block
+  availability_zone       = data.aws_availability_zones.available.names[var.public_subnets[count.index].availability_zone]
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "Public Subnet 1"
-  }
-}
-
-resource "aws_subnet" "public_secondary" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = data.aws_availability_zones.available.names[1]
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "Public Subnet 2"
+    Name = var.public_subnets[count.index].name_tag
   }
 }
 
