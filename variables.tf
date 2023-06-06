@@ -16,3 +16,13 @@ variable "web_server_ingress_rules" {
     description = string
   }))
 }
+
+variable "db_config" {
+  type = list(object({
+    cluster_name = string
+    db_name = string
+    db_username = string
+    db_password = string
+    availability_zones = list
+  }))
+}
