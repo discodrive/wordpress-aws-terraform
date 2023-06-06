@@ -21,11 +21,19 @@ resource "aws_eip" "elastic_ip_2" {
 resource "aws_nat_gateway" "nat_gateway_1" {
   allocation_id = aws_eip.elastic_ip_1.id
   subnet_id     = aws_subnet.public_subnet_1.id
+
+  tags = {
+    Name = "NAT Gateway Public Subnet 1"
+  }
 }
 
 resource "aws_nat_gateway" "nat_gateway_2" {
   allocation_id = aws_eip.elastic_ip_2.id
   subnet_id     = aws_subnet.public_subnet_2.id
+
+  tags = {
+    Name = "NAT Gateway Public Subnet 2"
+  }
 }
 
 # Configure the default route table. Terraform doesn't create a new route table, but adopts the default, clears existing defined routes and uses only rules specified in the terraform configuration.
@@ -48,3 +56,7 @@ resource "aws_route_table_association" "subnet_association_2" {
   subnet_id      = aws_subnet.public_subnet_2.id
   route_table_id = aws_default_route_table.public_route_table.id
 }
+
+# Create route tables for Private subnets
+# Associate private route table 1 with subnets 1 and 3
+# Associate private route table 2 with subnets 2 and 4
