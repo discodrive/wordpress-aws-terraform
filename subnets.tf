@@ -1,5 +1,5 @@
 # Public Subnets
-resource "aws_subnet" "public_primary" {
+resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.0.0/24"
   availability_zone       = data.aws_availability_zones.available.names[0]
@@ -10,7 +10,7 @@ resource "aws_subnet" "public_primary" {
   }
 }
 
-resource "aws_subnet" "public_secondary" {
+resource "aws_subnet" "public_subnet_2" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = data.aws_availability_zones.available.names[1]
@@ -22,13 +22,42 @@ resource "aws_subnet" "public_secondary" {
 }
 
 # Private Subnets
-resource "aws_subnet" "private_subnets" {
-  count             = length(var.private_subnets)
+resource "aws_subnet" "private_subnet_1" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnets[count.index].cidr_block
-  availability_zone = data.aws_availability_zones.available.names[var.private_subnets[count.index].availability_zone]
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = var.private_subnets[count.index].name_tag
+    Name = "Private Subnet 1 - App Tier"
+  }
+}
+
+resource "aws_subnet" "private_subnet_2" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.3.0/24"
+  availability_zone = data.aws_availability_zones.available.names[0]
+
+  tags = {
+    Name = "Private Subnet 2 - App Tier"
+  }
+}
+
+resource "aws_subnet" "private_subnet_3" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.4.0/24"
+  availability_zone = data.aws_availability_zones.available.names[1]
+
+  tags = {
+    Name = "Private Subnet 3 - DB Tier"
+  }
+}
+
+resource "aws_subnet" "private_subnet_4" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.5.0/24"
+  availability_zone = data.aws_availability_zones.available.names[1]
+
+  tags = {
+    Name = "Private Subnet 4 - DB Tier"
   }
 }

@@ -6,23 +6,32 @@ resource "aws_internet_gateway" "main_gateway" {
   vpc_id = aws_vpc.main.id
 }
 
-# Configure the default route table. Terraform doesn't create a new route table, but adopts the default, clears existing defined routes and uses only rules specified in the terraform configuration.
-resource "aws_default_route_table" "public_route_table" {
-  default_route_table_id = aws_vpc.main.default_route_table_id
+# Elastic IPs for use with public subnets
+resource "aws_eip" "elastic_ip_1" {
+  vpc              = true
+  public_ipv4_pool = "amazon"
+}
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main_gateway.id
+resource "aws_eip" "elastic_ip_2" {
+  vpc              = true
+  public_ipv4_pool = "amazon"
+}
+
+# NAT gateways
+resource "aws_nat_gateway" "nat_gateway_1" {
+  allocation_id = aws_eip.elastic_ip_1.id
+  subnet_id     = aws_subnet.public_subnet_1.id
+
+  tags = {
+    Name = "NAT Gateway Public Subnet 1"
   }
 }
 
-# Associate public subnets with route table
-resource "aws_route_table_association" "subnet_association_a" {
-  subnet_id      = aws_subnet.public_primary.id
-  route_table_id = aws_default_route_table.public_route_table.id
-}
+resource "aws_nat_gateway" "nat_gateway_2" {
+  allocation_id = aws_eip.elastic_ip_2.id
+  subnet_id     = aws_subnet.public_subnet_2.id
 
-resource "aws_route_table_association" "subnet_association_b" {
-  subnet_id      = aws_subnet.public_secondary.id
-  route_table_id = aws_default_route_table.public_route_table.id
+  tags = {
+    Name = "NAT Gateway Public Subnet 2"
+  }
 }
