@@ -8,6 +8,7 @@ resource "aws_rds_cluster" "db_cluster" {
     count = length(var.db_config)
 
     cluster_identifier      = var.db_config[count.index].cluster_name
+    db_subnet_group_name = aws_db_subnet_group.db_subnets.name
     engine                  = "aurora-mysql"
     engine_version          = "5.7.mysql_aurora.2.11.1"
     availability_zones      = var.db_config[count.index].availability_zones
@@ -29,5 +30,5 @@ resource "aws_rds_cluster_instance" "db_instance" {
     instance_class      = "db.t2.micro"
     engine              = each.value.engine
     engine_version      = each.value.engine_version
-    publicly_accessible = true
+    publicly_accessible = false
 }
