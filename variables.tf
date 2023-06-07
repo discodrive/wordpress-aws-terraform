@@ -19,10 +19,10 @@ variable "web_server_ingress_rules" {
 
 variable "db_config" {
   type = list(object({
-    cluster_name = string
-    db_name = string
-    db_username = string
-    db_password = string
-    availability_zones = list
+    cluster_name       = string
+    db_name            = string
+    db_username        = string
+    db_password        = string
+    availability_zones = string
   }))
 }
