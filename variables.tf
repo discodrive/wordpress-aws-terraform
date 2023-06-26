@@ -16,3 +16,4 @@ variable "web_server_ingress_rules" {
     description = string
   }))
 }
+
