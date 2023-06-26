@@ -30,12 +30,3 @@ web_server_ingress_rules = [
   },
 ]
 
-db_config = [
-  {
-    cluster_name       = "test_cluster"
-    db_name            = "database"
-    db_username        = "username"
-    db_password        = "password"
-    availability_zones = "eu-west-1"
-  },
-]
