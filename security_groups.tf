@@ -83,3 +83,19 @@ resource "aws_security_group_rule" "efs_security_group_rules_2" {
   description              = "EFS security group access - self"
   security_group_id        = aws_security_group.efs_security_group.id
 }
+
+# Security group for SSH access to EC2 instances
+resource "aws_security_group" "ssh_security_group" {
+  name = "ec2_ssh_security_group"
+  description = "Allows SSH access to EC2 instances"
+  vpc_id = aws_vpc.main.id
+}
+
+resource "aws_security_group_rule" "ssh_security_group_rules" {
+  type = "ingress"
+  from_port = 22
+  to_port = 22
+  protocol = "SSH"
+  description = "SSH access to EC2"
+  security_group_id = aws_security_group.ssh_security_group.id
+}
