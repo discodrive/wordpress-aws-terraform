@@ -17,3 +17,7 @@ variable "web_server_ingress_rules" {
   }))
 }
 
+variable "key_name" {
+  type = string
+  description = "The name of an existing key pair to allow ssh access to EC2 instances"
+}

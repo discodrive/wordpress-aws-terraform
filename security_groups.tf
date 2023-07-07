@@ -93,7 +93,7 @@ resource "aws_security_group" "ssh_security_group" {
 
 resource "aws_security_group_rule" "ssh_security_group_rules" {
   type = "ingress"
-  from_port = 22
+  from_port = MY IP ONLY
   to_port = 22
   protocol = "SSH"
   description = "SSH access to EC2"
