@@ -1,7 +1,3 @@
-<a href="https://terraform.io">
-    <img src=".github/tf.png" alt="Terraform logo" title="Terraform" align="left" height="50" />
-</a>
-
 # Terraform script for AWS hosted WordPress sites
 
 This set of Terraform files provisions all of the resources required for hosting a WordPress website entirely on AWS using a typical 3 tier application architecture.
@@ -20,9 +16,14 @@ The following resources will be provisioned with this script:
 - Aurora RDS cluster
 - Security groups for each tier of the application
 - 2x Elastic File System mounted on the database tier private subnets
-
+- CloudFront distribution and cache policies
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
+| `alb_ingress_rules` | Load balancer security group ingress rules | List of objects | - | Required |
+| `web_server_ingress_rules` | Web server security group ingress rules | List of objects | - | Required |
+| `key_name` | Name of the key pair to be used for SSH access | String | - | Required |
+| `domain_name` | Domain name of the app. e.g. website.com | String | - | Required |
+| `origin_id` | Identifier for the origin. e.g. app-name | String | - | Required |
