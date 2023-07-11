@@ -8,8 +8,8 @@ The following resources will be provisioned with this script:
 
 - VPC, Internet gateway, Elastic IPs, NAT gateways
 - Subnets:
--- 2x public subnets
--- 4x private subnets
+ - 2x public subnets
+ - 4x private subnets
 - Routing tables
 - 2x EC2 instances
 - Application Load Balancer associated with EC2 instances
